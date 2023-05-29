@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Title of the document</title>
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+
+<body class="container" style="margin-left:25%;margin-top:3%;margin-right: 25%; width:60%">
+    <div class="header">
+        <h1>EazyDocs API</h1>
+        <p>EazyDocs API can help you to create word and pdf templates, documents from json file. Each line of the
+            document should be described properly
+            according to rules shown below.
+
+        </p>
+        <h5>Print Word</h5>
+        <p>create word template - by defining each line of the document you can create a word document. </p>
+    </div>
+    <div class="content">
+        <h5>HTTP</h5>
+        <div class="curl">
+            <div class="curl-text">curl -i -X POST <span class="text">"https://eazydocs.com/api/print-word"</span>
+            </div>
+        </div>
+        <div class="curl-body">
+            <h6>Body raw (json)</h6>
+        </div>
+        <div class="curl-json">
+            <div style="margin-left: 5px;">{<br>
+                <div style="margin-left:10px;"><span class="text">"documentLines:</span> [
+                    <div style="margin-left:20px">{<br>
+                        <div style="margin-left:10px"><span class="text">"line_type"</span>: <span
+                                class="text">"table"</span>,<br>
+                            <span class="text">"order"</span>: <span class="text">2</span><br>
+                            <span class="text">"data"</span>: [ <br>
+                            <div style="margin-left: 15px;">
+                                <span class="text">"row1col1"</span>,<br>
+                                <span class="text">"row1col2"</span>,<br>
+                                <span class="text">"row1col3"</span><br>
+                            </div>
+                            ],<br>
+                            <span class="text">"column_size":</span> [ <br>
+                            <div style="margin-left: 15px;">
+                                <span class="text">20</span>,<br>
+                                <span class="text">30</span>,<br>
+                                <span class="text">5</span><br>
+                            </div>
+                            ]
+                        </div>
+                        },
+                        <div>{
+                            <div style="margin-left:10px"><span class="text">"line_type"</span>: <span
+                                    class="text">"record"</span>,<br>
+                                <span class="text">"order": 2</span>,<br>
+                                <span class="text">"title"</span>: <span class="text">"title"</span>,<br>
+                                <span class="text">"field"</span>: <span class="text">"field"</span>,<br>
+                                <span class="text">"substring"</span>: <span class="text">"substring", </span><br>
+                                <span class="text">"title_settings" </span>: {
+                                <div style="margin-left: 10px;">
+                                    <span class="text">"font"</span>: <span class="text">12</span>,<br>
+                                    <span class="text">"alignment"</span>: <span class="text">"L"</span>,<br>
+                                    <span class="text">"size_type"</span>: <span class="text">"content"</span>,<br>
+                                    <span class="text">"percent_size"</span>: <span class="text">12</span>,<br>
+                                    <span class="text">"text_type"</span>: <span class="text">""</span>
+                                </div>
+                                },<br>
+                                <span class="text">"field_settings"</span>: {
+                                <div style="margin-left: 10px;">
+                                    <span class="text">"font": 12</span>,<br>
+                                    <span class="text">"alignment"</span>: <span class="text">"L"</span>,<br>
+                                    <span class="text">"size_type"</span>: <span class="text">"content"</span>,<br>
+                                    <span class="text">"percent_size"</span>: <span class="text">12</span>,<br>
+                                    <span class="text">"text_type"</span>: <span class="text">""</span>
+                                </div>
+                                },<br>
+                                <span class="text">"substring_settings"</span>: {
+                                <div style="margin-left: 10px;"><span class="text">"font"</span>: <span
+                                        class="text">12</span><br>
+                                </div>
+                                }
+                            </div>
+
+                        </div>
+                        }
+                    </div>
+                    ]
+                </div>
+                }
+            </div>
+        </div>
+        <h5>Fields</h5>
+        <span class="text"><strong>line type</strong></span> - it may have only two values: record or table,<br>
+        <span class="text"><strong>order</strong></span> - required, order of the line,<br>
+        <span class="text"><strong>data</strong></span> - required for tables, data for filling the table,<br>
+        <span class="text"><strong>column size</strong></span> - optional for tables, size of columns in percent. The
+        default value table will be
+        equally divided
+        according to column number.<br>
+        <span class="text"><strong>title</strong></span> - required for records, each line consists of title and
+        optional field. Title carries
+        information about
+        the field. For instance, “name”, “date” etc.<br>
+        <span class="text"><strong>field</strong></span> - optional, some value which is described in title. If not
+        defined line will be
+        printed,<br>
+        <span class="text"><strong>substring</strong></span> - optional, it is printed under the field line, usually
+        used in templates<br>
+        <span class="text"><strong>title_settings</strong></span> – required object for defining font and size of the
+        title. <br>
+        <ul>
+            <li><span class="text"><strong>size_type</strong></span> – text of title is inside cell of the table, so the
+                size
+                can be different from the length of the text. By default it’s equal, but it can be changed. It have 3
+                options:
+                content which is default value, endLine and percent.</li>
+            <ul>
+                <li><span class="text"><strong>endLine</strong></span> – extends the cell of the title until the end
+                    of the
+                    line.</li>
+                <li><span class="text"><strong>percent</strong></span> – width of the paper is considered as 100%
+                    (excluding
+                    the
+                    margins). Needs an optional field value by
+                    which the size of the cell will be calculated. </li>
+            </ul>
+            <li><span class="text"><strong>font</strong></span> – by default 12. </li>
+            <li><span class="text"><strong>percent_size</strong></span> – size of title cell in percent. Required when
+                the
+                size_type is percent. </li>
+            <li><span class="text"><strong>alignment </strong></span>– alignment of the text, by default L (left) it can
+                be
+                left, right or center. Value options: L,R,C</li>
+        </ul>
+        <span class="text"><strong>field_settings</strong></span> – object for defining font and size of the field. Same
+        options as for title settings.<br>
+        <span class="text"><strong>substring_settings</strong></span> – object for defining font and size of the
+        substring.
+        <ul>
+            <li><span class="text"><strong>font</strong></span> – by default 8.</li>
+            <li><span class="text"><strong>alignment</strong></span> - alignment of the text, by default L (left) it can
+                be
+                left, right or center. Value options: L,R,C</li>
+        </ul>
+
+</body>
+
+</html>
